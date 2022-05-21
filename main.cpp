@@ -44,6 +44,8 @@ return output;
 
 struct graphEdge {
     int ver, weight;
+    bool weight_known=false;
+
 };
 
 void is_banan_tree(int * edge_tab2,int s2){
@@ -68,7 +70,7 @@ void is_banan_tree(int * edge_tab2,int s2){
     int weight=0;
 
 
-
+while(weight<s2/4){
     for(int i=0;i<s2;i++){
 
         if(arr_graphEdge[i].weight>weight){
@@ -92,7 +94,8 @@ void is_banan_tree(int * edge_tab2,int s2){
 
     }
 
-
+    weight=weight+1;
+}
 
 
 
