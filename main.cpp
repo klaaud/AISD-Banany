@@ -18,9 +18,101 @@ int count_banans(int * edge_tab,int s){
 
      }
      cout<<"mamy "<<output<<" bananow";
-return 0;
+return output;
 
 }
+int count_banans_single(int * edge_tab,int s,int num){
+     int output=0;
+
+
+        for(int j=0;j<s;j++){
+            if(num==edge_tab[j]) output=output+1;
+        }
+
+     cout<<"tutaj dla num "<<num<<"waga to "<<output<<endl;
+
+return output;
+
+}
+
+
+
+
+
+
+
+
+struct graphEdge {
+    int ver, weight;
+};
+
+void is_banan_tree(int * edge_tab2,int s2){
+
+    struct graphEdge arr_graphEdge[s2];
+
+    for(int i=0;i<s2;i++){
+        arr_graphEdge[i].ver=edge_tab2[i];
+
+        if(count_banans_single(edge_tab2,s2,arr_graphEdge[i].ver)==1){
+
+            arr_graphEdge[i].weight=0;
+        }
+        else{
+                arr_graphEdge[i].weight=5;
+
+        }
+
+
+    }
+
+    int weight=0;
+
+
+
+    for(int i=0;i<s2;i++){
+
+        if(arr_graphEdge[i].weight>weight){
+
+            for(int j=0;j<s2;j++){
+
+                if(arr_graphEdge[i].ver==edge_tab2[j])
+
+                  if((j==0 || j%2==0) && arr_graphEdge[j+1].weight==weight){
+                        arr_graphEdge[i].weight=weight+1;
+                  }
+                  else if((j==1 || j%2!=0) && arr_graphEdge[j-1].weight==weight){
+                        arr_graphEdge[i].weight=weight+1;
+                  }
+
+            }
+
+
+        }
+
+
+    }
+
+
+
+
+
+
+
+
+    for(int i=0;i<s2;i++){
+
+        cout<<"tutaj printujemuy strcut"<<endl;
+
+        cout<<arr_graphEdge[i].ver<<endl;
+        cout<<arr_graphEdge[i].weight<<endl;
+
+
+
+    }
+
+
+}
+
 
 int main()
 {
@@ -101,7 +193,7 @@ int main()
 
 
     count_banans(edge_tab,m);
-
+    is_banan_tree(edge_tab,m);
 
 
 
