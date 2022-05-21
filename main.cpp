@@ -4,7 +4,23 @@
 #include <vector>
 using namespace std;
 
+int count_banans(int * edge_tab,int s){
+     int output=0;
 
+     for(int i=0;i<s;i++){
+        int temp=edge_tab[i];
+        int counter=0;
+        for(int j=0;j<s;j++){
+            if(temp==edge_tab[j]) counter=counter+1;
+        }
+        if(counter==1) output=output+1;
+
+
+     }
+     cout<<"mamy "<<output<<" bananow";
+return 0;
+
+}
 
 int main()
 {
@@ -22,9 +38,9 @@ int main()
 
     int m = count(init_text.begin(), init_text.end(), ch);
 
-    int edge_tab [m/2][2];
+    int edge_tab [m];
 
-    int counter=0;
+    int counter=1;
     string check="";
         for (int i = 0; i < n; i++) {
             cout<<"Wiersz nr "<<i<<" ";
@@ -40,10 +56,10 @@ int main()
                         if (check.find(temp2) != string::npos) {
                         }
                         else{
-                        edge_tab[counter][0]=i;
-                        edge_tab[counter][1]=j;
+                        edge_tab[counter-1]=i;
+                        edge_tab[counter]=j;
                         check=check+temp2;
-                        counter=counter+1;
+                        counter=counter+2;
 
                         }
                     }
@@ -53,10 +69,10 @@ int main()
                         if (check.find(temp2) != string::npos) {
                         }
                         else{
-                        edge_tab[counter][0]=j;
-                        edge_tab[counter][1]=i;
+                        edge_tab[counter-1]=j;
+                        edge_tab[counter]=i;
                         check=check+temp2;
-                        counter=counter+1;
+                        counter=counter+2;
 
                         }
 
@@ -75,16 +91,16 @@ int main()
 
     cout<<"sprawdzamy vector"<<endl;
 
-    for(int i=0;i<m/2;i++){
+    for(int i=1;i<=m;i++){
 
-        cout<<edge_tab[i][0]<<" "<<edge_tab[i][1]<<endl;
+        cout<<edge_tab[i-1]<<" "<<edge_tab[i]<<endl;
+        i++;
     }
 
     cout<<"========================================="<<endl;
 
-    cout<<check<<endl;
 
-
+    count_banans(edge_tab,m);
 
 
 
