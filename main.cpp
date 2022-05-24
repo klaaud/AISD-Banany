@@ -36,36 +36,35 @@ return output;
 }
 
 
-
-
-
-
-
-
 struct graphEdge {
     int ver, weight;
-    bool weight_known=false;
 
 };
 
 void is_banan_tree(int * edge_tab2,int s2){
 
-    struct graphEdge arr_graphEdge[s2];
+
+    int **points_arr = new int*[s2];
+    for(int i = 0; i < s2; ++i) {
+        points_arr[i] = new int[2];
+    }
 
     for(int i=0;i<s2;i++){
-        arr_graphEdge[i].ver=edge_tab2[i];
+        points_arr[i][0]=edge_tab2[i];
 
-        if(count_banans_single(edge_tab2,s2,arr_graphEdge[i].ver)==1){
+        if(count_banans_single(edge_tab2,s2,points_arr[i][0])==1){
 
-            arr_graphEdge[i].weight=0;
+            points_arr[i][1]=0;
         }
         else{
-                arr_graphEdge[i].weight=5;
+                points_arr[i][1]=5;
 
         }
 
 
     }
+    cout<<"==================================="<<endl;
+
 
     int weight=0;
 
@@ -73,17 +72,17 @@ void is_banan_tree(int * edge_tab2,int s2){
 while(weight<s2/4){
     for(int i=0;i<s2;i++){
 
-        if(arr_graphEdge[i].weight>weight){
+        if(points_arr[i][1]>weight){
 
             for(int j=0;j<s2;j++){
 
-                if(arr_graphEdge[i].ver==edge_tab2[j])
+                if(points_arr[i][0]==edge_tab2[j])
 
-                  if((j==0 || j%2==0) && arr_graphEdge[j+1].weight==weight){
-                        arr_graphEdge[i].weight=weight+1;
+                  if((j==0 || j%2==0) && points_arr[j+1][1]==weight){
+                        points_arr[i][1]=weight+1;
                   }
-                  else if((j==1 || j%2!=0) && arr_graphEdge[j-1].weight==weight){
-                        arr_graphEdge[i].weight=weight+1;
+                  else if((j==1 || j%2!=0) && points_arr[j-1][1]==weight){
+                        points_arr[i][1]=weight+1;
                   }
 
             }
@@ -98,22 +97,56 @@ while(weight<s2/4){
 }
 
 
-
-
-
-
-    for(int i=0;i<s2;i++){
+   for(int i=0;i<s2;i++){
 
         cout<<"tutaj printujemuy strcut"<<endl;
 
-        cout<<arr_graphEdge[i].ver<<endl;
-        cout<<arr_graphEdge[i].weight<<endl;
+        cout<<points_arr[i][0]<<endl;
+        cout<<points_arr[i][1]<<endl;
 
 
 
     }
 
+    string * points_array=new string [s2];
 
+       for(int i=0;i<s2;i++){
+
+        cout<<"tutaj printujemuy strcut"<<endl;
+        points_array[i]=to_string(points_arr[i][0])+"-"+to_string(points_arr[i][1]);
+
+       }
+       vector<string> points_vec;
+
+
+
+        for(int i=0;i<s2;i++){
+        points_vec.push_back(points_array[i]);
+       }
+        sort(points_vec.begin(),points_vec.end());
+        points_vec.erase(unique(points_vec.begin(),points_vec.end()),points_vec.end());
+
+        cout<<"VECTOR==========================="<<endl;
+
+        for(int i=0;i<points_vec.size();i++){
+
+            cout<<points_vec[i]<<endl;
+        }
+        int new_size=points_vec.size();
+        graphEdge graphEdge_arr [new_size];
+
+        for(int i=0;i<new_size;i++){
+            string str=points_vec[i];
+            size_t pos = str.find("-");
+            graphEdge_arr[i].ver=stoi(str.substr(0,pos));
+            graphEdge_arr[i].weight=stoi(str.substr(pos+1));
+        }
+
+        for(int i=0;i<new_size;i++){
+
+            cout<<graphEdge_arr[i].ver<<" ";
+            cout<<graphEdge_arr[i].weight<<endl;
+        }
 }
 
 
