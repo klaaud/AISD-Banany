@@ -47,7 +47,8 @@ bool is_banan_tree(int * edge_tab2,int s2, int counted_bananas){
     // tutaj wyznaczamy tablice z wierzcho³kami ktore moga byc bananami
     int * bananas=new int[counted_bananas];
     int counter_b=0;
-    for(int i=0;i<s2/2;i++){
+
+    for(int i=0;i<=s2/2;i++){
         if(count_banans_single(edge_tab2,s2,i)==1){
             bananas[counter_b]=i;
             counter_b=counter_b+1;
@@ -71,7 +72,7 @@ bool is_banan_tree(int * edge_tab2,int s2, int counted_bananas){
             points_arr[i][1]=0;
         }
         else{
-                points_arr[i][1]=5;
+                points_arr[i][1]=s2;
 
         }
 
@@ -190,7 +191,32 @@ while(weight<s2/4){
             if(route_counter==graphEdge_arr[idx].weight) {output=true;}
             else {output=false;break;}
         }
-        return output;
+
+        bool is_banana;
+        int bananas_parents=0;
+
+
+        for(int i=0;i<s2/2;i++){
+           if(graphEdge_arr[idx].weight!=1){
+            if(edges[i].x_lvl==1 && edges[i].y_lvl==2) bananas_parents=bananas_parents+1;
+            else if (edges[i].y_lvl==1 && edges[i].x_lvl==2) bananas_parents=bananas_parents+1;
+           }
+           else{
+            if(edges[i].x_lvl==1 && edges[i].y_lvl==0) bananas_parents=bananas_parents+1;
+            else if (edges[i].y_lvl==1 && edges[i].x_lvl==0) bananas_parents=bananas_parents+1;
+           }
+
+        }
+
+
+
+
+            if(counted_bananas%bananas_parents==0 && output) is_banana=true;
+
+            else is_banana=false;
+
+
+        return is_banana;
 
 
 }
@@ -283,7 +309,7 @@ int main()
 
 
     int bananas=count_banans(edge_tab,m);
-
+if(n>2){
     if(is_banan_tree(edge_tab,m,bananas)){
          cout<<bananas<<" bananas :)"<<endl;
          }
@@ -291,7 +317,10 @@ int main()
         cout<<"0 bananas :("<<endl;
 
     }
-
+}
+else{
+    cout<<bananas<<" bananas :)"<<endl;
+}
 
 
 
