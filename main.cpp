@@ -150,6 +150,18 @@ while(weight<s2/4){
         }
 
         int root_point=graphEdge_arr[idx].ver;
+
+        int root_point_count=0;
+
+        for(int i=0;i<new_size;i++){
+            if(graphEdge_arr[i].weight==graphEdge_arr[idx].weight){
+                    root_point_count=root_point_count+1;
+        }
+
+        }
+
+        if(root_point_count==1){
+
         //"droga" dla pierwszego banana do root
         int route=0;
 
@@ -218,7 +230,10 @@ while(weight<s2/4){
 
         return is_banana;
 
-
+        }
+    else{
+        return false;
+    }
 }
 
 
@@ -250,8 +265,8 @@ int main()
     int n=data[i].x;
     int ** tab=new int *[n];
 
-    for(int i = 0; i < n; ++i){
-        tab[i] = new int[n];
+    for(int s = 0; s < n; ++s){
+        tab[s] = new int[n];
     }
     char ch = '1';
 
@@ -261,19 +276,19 @@ int main()
 
     int counter=1;
     string check="";
-        for (int i = 0; i < n; i++) {
+        for (int l= 0; l < n; l++) {
             for(int j=0;j<n;j++){
 
                 int num=newinput.at(j)-48;
-                tab[i][j]=num;
-                if(tab[i][j]==1){
-                    if(j>i){
-                        string temp2=to_string(i)+" "+to_string(j)+",";
+                tab[l][j]=num;
+                if(tab[l][j]==1){
+                    if(j>l){
+                        string temp2=to_string(l)+" "+to_string(j)+",";
 
                         if (check.find(temp2) != string::npos) {
                         }
                         else{
-                        edge_tab[counter-1]=i;
+                        edge_tab[counter-1]=l;
                         edge_tab[counter]=j;
                         check=check+temp2;
                         counter=counter+2;
@@ -281,13 +296,13 @@ int main()
                         }
                     }
                     else{
-                        string temp2=to_string(j)+" "+to_string(i)+",";
+                        string temp2=to_string(j)+" "+to_string(l)+",";
 
                         if (check.find(temp2) != string::npos) {
                         }
                         else{
                         edge_tab[counter-1]=j;
-                        edge_tab[counter]=i;
+                        edge_tab[counter]=l;
                         check=check+temp2;
                         counter=counter+2;
 
@@ -325,5 +340,6 @@ else{
 
 
  }
+
     return 0;
 }
